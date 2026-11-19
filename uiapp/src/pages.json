@@ -1,0 +1,402 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "依依大码服装"
+      }
+    },
+    {
+      "path": "pages/user/login",
+      "style": {
+        "navigationBarTitleText": "用户登录"
+      }
+    },
+    {
+      "path": "pages/user/register",
+      "style": {
+        "navigationBarTitleText": "用户注册"
+      }
+    },
+    {
+      "path": "pages/user/real-name",
+      "style": {
+        "navigationBarTitleText": "实名认证"
+      }
+    },
+    {
+      "path": "pages/user/set-pay-password",
+      "style": {
+        "navigationBarTitleText": "设置支付密码"
+      }
+    },
+    {
+      "path": "pages/user/forgot-password-step1",
+      "style": {
+        "navigationBarTitleText": "忘记密码"
+      }
+    },
+    {
+      "path": "pages/user/forgot-password-step2",
+      "style": {
+        "navigationBarTitleText": "忘记密码"
+      }
+    },
+    {
+      "path": "pages/user/forgot-password-step3",
+      "style": {
+        "navigationBarTitleText": "忘记密码"
+      }
+    },
+    {
+      "path": "pages/product/list",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
+      "path": "pages/product/category-list",
+      "style": {
+        "navigationBarTitleText": "商品列表",
+        "navigationBarBackgroundColor": "#ffb6c1",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "default"
+      }
+    },
+    {
+      "path": "pages/product/detail",
+      "style": {
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
+      "path": "pages/search/index",
+      "style": {
+        "navigationBarTitleText": "搜索",
+        "navigationBarBackgroundColor": "#ffb6c1",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/cart/index",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
+    },
+    {
+      "path": "pages/order/checkout",
+      "style": {
+        "navigationBarTitleText": "确认订单"
+      }
+    },
+    {
+      "path": "pages/order/list",
+      "style": {
+        "navigationBarTitleText": "我的订单"
+      }
+    },
+    {
+      "path": "pages/order/detail",
+      "style": {
+        "navigationBarTitleText": "订单详情",
+        "navigationBarBackgroundColor": "#ffb6c1",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "default"
+      }
+    },
+    {
+      "path": "pages/shop/detail",
+      "style": {
+        "navigationBarTitleText": "店铺详情"
+      }
+    },
+    {
+      "path": "pages/order/detail-merge",
+      "style": {
+        "navigationBarTitleText": "订单详情"
+      }
+    },
+    {
+      "path": "pages/order/review",
+      "style": {
+        "navigationBarTitleText": "商品评价"
+      }
+    },
+    {
+      "path": "pages/order/after-sale-apply",
+      "style": {
+        "navigationBarTitleText": "申请售后",
+        "navigationBarBackgroundColor": "#ffb6c1",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/order/after-sale-detail",
+      "style": {
+        "navigationBarTitleText": "售后详情",
+        "navigationBarBackgroundColor": "#ffb6c1",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/payment/bank-pay",
+      "style": {
+        "navigationBarTitleText": "银行卡支付",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/payment/success",
+      "style": {
+        "navigationBarTitleText": "支付成功",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/index",
+      "style": {
+        "navigationBarTitleText": "个人中心"
+      }
+    },
+    {
+      "path": "pages/user/service",
+      "style": {
+        "navigationBarTitleText": "联系客服"
+      }
+    },
+    {
+      "path": "pages/user/coupons",
+      "style": {
+        "navigationBarTitleText": "我的优惠券"
+      }
+    },
+    {
+      "path": "pages/user/transactions",
+      "style": {
+        "navigationBarTitleText": "交易记录"
+      }
+    },
+    {
+      "path": "pages/user/favorites/index",
+      "style": {
+        "navigationBarTitleText": "我的收藏"
+      }
+    },
+    {
+      "path": "pages/user/address/index",
+      "style": {
+        "navigationBarTitleText": "我的地址"
+      }
+    },
+    {
+      "path": "pages/user/address/add",
+      "style": {
+        "navigationBarTitleText": "新增地址"
+      }
+    },
+    {
+      "path": "pages/user/address/edit",
+      "style": {
+        "navigationBarTitleText": "编辑地址"
+      }
+    },
+    {
+      "path": "pages/user/history",
+      "style": {
+        "navigationBarTitleText": "浏览记录"
+      }
+    },
+    {
+      "path": "pages/user/messages/buyer-messages",
+      "style": {
+        "navigationBarTitleText": "站内信"
+      }
+    },
+    {
+      "path": "pages/user/wallet/index",
+      "style": {
+        "navigationBarTitleText": "我的钱包",
+        "navigationBarBackgroundColor": "#f8f9fa",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/wallet/recharge-amount",
+      "style": {
+        "navigationBarTitleText": "输入充值金额",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/wallet/recharge-bank",
+      "style": {
+        "navigationBarTitleText": "选择银行卡",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/wallet/recharge-processing",
+      "style": {
+        "navigationBarTitleText": "充值处理中",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/user/wallet/recharge-result",
+      "style": {
+        "navigationBarTitleText": "充值结果",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/user/wallet/withdraw-amount",
+      "style": {
+        "navigationBarTitleText": "输入提现金额",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/wallet/withdraw-bank",
+      "style": {
+        "navigationBarTitleText": "选择提现银行卡",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/user/wallet/withdraw-processing",
+      "style": {
+        "navigationBarTitleText": "提现处理中",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/user/wallet/withdraw-result",
+      "style": {
+        "navigationBarTitleText": "提现结果",
+        "navigationBarBackgroundColor": "#ffffff",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/zones/index",
+      "style": {
+        "navigationBarTitleText": "专区"
+      }
+    },
+    {
+      "path": "pages/zones/detail",
+      "style": {
+        "navigationBarTitleText": "专区详情"
+      }
+    },
+    {
+      "path": "pages/discussion/list",
+      "style": {
+        "navigationBarTitleText": "社区"
+      }
+    },
+    {
+      "path": "pages/discussion/detail",
+      "style": {
+        "navigationBarTitleText": "社区详情"
+      }
+    },
+    {
+      "path": "pages/discussion/create",
+      "style": {
+        "navigationBarTitleText": "发布社区内容"
+      }
+    },
+    {
+      "path": "pages/brands/index",
+      "style": {
+        "navigationBarTitleText": "品牌中心"
+      }
+    },
+    {
+      "path": "pages/brands/detail",
+      "style": {
+        "navigationBarTitleText": "品牌店铺"
+      }
+    },
+    {
+      "path": "pages/common/webview",
+      "style": {
+        "navigationBarTitleText": "网页查看"
+      }
+    }
+  ],
+  "globalStyle": {
+    "backgroundColor": "#f8f9fa",
+    "navigationBarBackgroundColor": "#ffb6c1",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "依依大码服装",
+    "navigationStyle": "default"
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^van-(.*)": "vant/lib/$1"
+    }
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#ff6b6b",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "#e8e8e8",
+    "fontSize": "10px",
+    "iconWidth": "24px",
+    "height": "50px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home-active.png",
+        "badge": "",
+        "iconFontSize": "24px"
+      },
+      {
+        "pagePath": "pages/product/list",
+        "text": "分类",
+        "iconPath": "static/category.png",
+        "selectedIconPath": "static/category-active.png"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "text": "购物车",
+        "iconPath": "static/cart.png",
+        "selectedIconPath": "static/cart-active.png",
+        "badge": ""
+      },
+      {
+        "pagePath": "pages/order/list",
+        "text": "订单",
+        "iconPath": "static/order.png",
+        "selectedIconPath": "static/order-active.png",
+        "badge": ""
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的",
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/user-active.png"
+      }
+    ]
+  },
+  "subPackages": []
+}

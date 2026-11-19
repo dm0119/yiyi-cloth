@@ -1,0 +1,46 @@
+@startuml 客服聊天顺序图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 80
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+skinparam defaultWidth 400
+skinparam sequenceArrowColor Black
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 40
+
+
+actor "买家" as Buyer
+participant "detail.vue" as Frontend
+participant "ConversationController" as ConvController
+participant "MessageController" as MsgController
+participant "数据库" as Database
+
+Buyer -> Frontend++: 点击"咨询商品"
+Frontend -> ConvController++: POST /api/conversations
+ConvController -> Database++: 检查买家和客服是否存在
+Database --> ConvController--: 返回用户信息
+ConvController -> Database++: 查询是否已存在活跃会话
+Database --> ConvController--: 返回查询结果
+ConvController -> Database++: INSERT INTO conversations
+Database --> ConvController--: 返回会话ID
+ConvController --> Frontend--: 返回会话ID
+Frontend --> Buyer--: 进入聊天窗口
+Buyer -> Frontend++: 输入消息,点击"发送"
+Frontend -> MsgController++: POST /api/conversations/:id/messages
+MsgController -> Database++: 检查会话状态
+Database --> MsgController--: 返回会话信息
+MsgController -> Database++: 更新会话状态为活跃(如已关闭)
+Database --> MsgController--: 返回更新结果
+MsgController -> Database++: INSERT INTO messages
+Database --> MsgController--: 返回消息ID
+MsgController -> Database++: 更新会话更新时间
+Database --> MsgController--: 返回更新结果
+MsgController -> Database++: 查询完整消息信息
+Database --> MsgController--: 返回消息详情
+MsgController --> Frontend--: 返回完整消息信息
+Frontend --> Buyer--: 显示消息发送成功
+
+@enduml

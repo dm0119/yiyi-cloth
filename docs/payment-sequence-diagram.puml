@@ -1,0 +1,37 @@
+@startuml 在线支付顺序图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 80
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+skinparam defaultWidth 400
+skinparam sequenceArrowColor Black
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 40
+
+
+actor "买家" as Buyer
+participant "OrderDetail.vue" as Frontend
+participant "PaymentController" as Controller
+participant "数据库" as Database
+
+Buyer -> Frontend++: 点击"立即支付",选择支付方式
+Frontend -> Controller++: POST /mobile/payments/simulate
+Controller -> Database++: 查询订单信息(校验状态和归属)
+Database --> Controller--: 返回订单实体
+Controller -> Controller: 验证支付金额
+Controller -> Database++: 查询支付记录
+Database --> Controller--: 返回支付记录
+Controller -> Controller: 支付(生成交易流水号)
+Controller -> Database++: INSERT INTO payments
+Database --> Controller--: 返回paymentId
+Controller -> Database++: 更新订单状态为已支付
+Database --> Controller--: 返回更新结果
+Controller -> Database++: INSERT INTO transaction_records
+Database --> Controller--: 返回插入结果
+Controller --> Frontend--: 返回支付成功
+Frontend --> Buyer--: 显示"支付成功"提示
+
+@enduml

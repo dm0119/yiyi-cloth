@@ -1,0 +1,33 @@
+@startuml 添加服装顺序图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 80
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+skinparam defaultWidth 400
+skinparam sequenceArrowColor Black
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 40
+
+
+actor "商家" as Merchant
+participant "ProductManage.vue" as Frontend
+participant "ProductController" as Controller
+participant "数据库" as Database
+
+Merchant -> Frontend++: 点击"添加服装",填写服装信息
+Frontend -> Controller++: POST /api/products
+Controller -> Controller: 校验库存不能为负数
+Controller -> Controller: 校验必须选择分类
+Controller -> Database++: INSERT INTO products
+Database --> Controller--: 返回服装ID
+Controller -> Database++: 查询验证分类ID有效性
+Database --> Controller--: 返回有效分类ID
+Controller -> Database++: INSERT INTO product_categories
+Database --> Controller--: 返回插入结果
+Controller --> Frontend--: 返回创建成功
+Frontend --> Merchant--: 显示添加成功提示
+
+@enduml

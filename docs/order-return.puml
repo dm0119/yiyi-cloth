@@ -1,0 +1,94 @@
+@startuml
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+
+actor 买家
+participant "order-detail.vue" as 订单详情页
+participant "AfterSaleController" as 售后控制器
+actor 商家
+participant "AfterSales.vue" as 售后管理页
+participant "inventoryService.js" as inventoryService
+participant "数据库" as Database
+
+买家 -> 订单详情页 : 申请售后(传入订单ID、售后类型、原因、描述、图片)
+订单详情页 -> 售后控制器 : POST /api/mobile/orders/:id/after-sale
+售后控制器 -> Database : 校验订单状态、重复申请、新规格库存
+Database --> 售后控制器 : 返回校验结果
+
+alt 急速退款(待发货)
+  售后控制器 -> Database : INSERT INTO order_returns
+  售后控制器 -> inventoryService : safeRestoreStock(恢复库存)
+  售后控制器 -> Database : UPDATE orders SET status=REFUNDED
+  售后控制器 --> 订单详情页 : {success:true, message:'急速退款成功'}
+else 退货退款/换货
+  售后控制器 -> Database : INSERT INTO order_returns
+  售后控制器 -> Database : UPDATE orders SET status=AFTER_SALE_PENDING
+  售后控制器 --> 订单详情页 : {success:true, message:'售后申请已提交'}
+end
+订单详情页 --> 买家 : 显示结果
+
+商家 -> 售后管理页 : 查看售后列表(传入页码、条数、状态筛选)
+售后管理页 -> 售后控制器 : GET /api/after-sales
+售后控制器 -> Database : SELECT * FROM order_returns(分页+筛选)
+Database --> 售后控制器 : 返回列表
+售后控制器 --> 售后管理页 : {success:true, data:{list,total}}
+
+商家 -> 售后管理页 : 同意售后
+售后管理页 -> 售后控制器 : POST /api/orders/:id/after-sale/approve
+售后控制器 -> Database : UPDATE order_returns SET status=APPROVED
+售后控制器 --> 售后管理页 : {success:true, message:'已同意售后申请'}
+
+商家 -> 售后管理页 : 拒绝售后(传入拒绝原因)
+售后管理页 -> 售后控制器 : POST /api/orders/:id/after-sale/reject
+售后控制器 -> Database : UPDATE order_returns SET status=REJECTED
+售后控制器 -> Database : UPDATE orders 恢复申请前状态
+售后控制器 --> 售后管理页 : {success:true, message:'已拒绝售后申请'}
+
+买家 -> 订单详情页 : 填写退货物流(传入物流公司、快递单号)
+订单详情页 -> 售后控制器 : POST /api/mobile/orders/:id/after-sale/return-logistics
+售后控制器 -> Database : UPDATE order_returns SET status=RETURNING
+售后控制器 -> Database : UPDATE orders SET status=RETURNING
+售后控制器 --> 订单详情页 : {success:true, message:'退货物流信息已提交'}
+
+商家 -> 售后管理页 : 确认收货
+售后管理页 -> 售后控制器 : POST /api/orders/:id/after-sale/confirm-received
+售后控制器 -> Database : UPDATE order_returns SET status=WAITING_REFUND
+售后控制器 -> Database : UPDATE orders SET status=WAITING_REFUND
+售后控制器 --> 售后管理页 : 确认完成
+
+商家 -> 售后管理页 : 确认退款
+售后管理页 -> 售后控制器 : POST /api/orders/:id/after-sale/confirm-refund
+售后控制器 -> Database : UPDATE order_returns SET status=COMPLETED
+售后控制器 -> Database : UPDATE orders SET status=REFUNDED
+售后控制器 -> inventoryService : safeRestoreStock(恢复库存)
+售后控制器 -> Database : INSERT INTO transaction_records
+售后控制器 --> 售后管理页 : {success:true, message:'退款成功'}
+
+商家 -> 售后管理页 : 换货发货(传入物流公司、快递单号)
+售后管理页 -> 售后控制器 : POST /api/orders/:id/after-sale/reship
+售后控制器 -> inventoryService : safeDeductStock(扣减新商品库存)
+售后控制器 -> Database : UPDATE order_returns SET status=COMPLETED
+售后控制器 -> Database : UPDATE orders SET status=SHIPPED
+售后控制器 --> 售后管理页 : {success:true, message:'换货重新发货成功'}
+
+买家 -> 订单详情页 : 取消售后申请
+订单详情页 -> 售后控制器 : POST /api/mobile/orders/:id/after-sale/cancel
+售后控制器 -> Database : UPDATE order_returns SET status=CANCELLED
+售后控制器 -> Database : UPDATE orders 恢复申请前状态
+售后控制器 --> 订单详情页 : {success:true, message:'售后申请已取消'}
+
+买家 -> 订单详情页 : 查看售后列表
+订单详情页 -> 售后控制器 : GET /api/mobile/after-sales
+售后控制器 -> Database : SELECT * FROM order_returns WHERE user_id=?
+Database --> 售后控制器 : 返回列表
+售后控制器 --> 订单详情页 : {success:true, data:{list,total}}
+
+买家/商家 -> 页面 : 查看售后详情(传入售后记录ID)
+页面 -> 售后控制器 : GET /api/after-sales/:id
+售后控制器 -> Database : SELECT * FROM order_returns WHERE id=?
+售后控制器 -> Database : 校验用户权限
+Database --> 售后控制器 : 返回详情
+售后控制器 --> 页面 : {success:true, data:afterSale}
+
+@enduml

@@ -1,0 +1,34 @@
+flowchart TD
+    Start([开始]) --> Browse[浏览服装列表]
+    Browse --> SelectProduct[选择商品进入详情页]
+    SelectProduct --> SelectSpec[选择规格颜色和尺码和数量]
+    SelectSpec --> FrontendValidate{前端验证规格和数量合法性}
+    
+    FrontendValidate -->|不正确| ShowError1[提示错误信息]
+    ShowError1 --> SelectSpec
+    
+    FrontendValidate -->|正确| ClickButton[点击加入购物车或立即购买]
+    ClickButton --> JWTVerify[服务器端JWT token验证用户身份]
+    
+    JWTVerify -->|未登录或过期| RedirectLogin[跳转至登录页面]
+    RedirectLogin --> End1([结束])
+    
+    JWTVerify -->|已登录| CheckProduct{验证商品是否存在是否下架}
+    
+    CheckProduct -->|不存在或已下架| ShowError2[返回商品已下架]
+    ShowError2 --> End2([结束])
+    
+    CheckProduct -->|存在| CheckStock{验证库存是否充足}
+    
+    CheckStock -->|库存不足| ShowError3[返回商品库存不足]
+    ShowError3 --> End3([结束])
+    
+    CheckStock -->|库存充足| CheckAction{判断操作类型}
+    
+    CheckAction -->|加入购物车| AddToCart[保存至cart_items表]
+    AddToCart --> Success1[返回成功]
+    Success1 --> End4([结束])
+    
+    CheckAction -->|立即购买| CreateOrder[生成订单扣减库存]
+    CreateOrder --> Success2[返回成功]
+    Success2 --> End5([结束])

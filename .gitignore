@@ -1,0 +1,49 @@
+# ---------- 依赖 ----------
+node_modules/
+jspm_packages/
+.npm/
+.pnpm-store/
+
+# ---------- 构建产物 ----------
+dist/
+build/
+unpackage/
+.output/
+*.tsbuildinfo
+
+# ---------- 日志 ----------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- 运行时数据 ----------
+backend/uploads/
+*.sqlite
+*.db-journal
+
+# ---------- 编辑器 / IDE ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 环境与密钥 ----------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---------- 其他 ----------
+.cache/
+.temp/
+*.tmp

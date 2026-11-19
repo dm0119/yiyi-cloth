@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>测试商家评价 API</title>
+</head>
+<body>
+  <h1>测试商家评价 API</h1>
+  <button onclick="testAPI()">测试 API</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function testAPI() {
+      const merchantToken = localStorage.getItem('merchant_token');
+      const adminToken = localStorage.getItem('admin_token');
+      
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = '';
+      
+      const log = (msg) => {
+        resultEl.textContent += msg + '\n';
+      };
+      
+      log('=== 检查 Token ===');
+      log(`merchant_token: ${merchantToken ? '存在' : '不存在'}`);
+      log(`admin_token: ${adminToken ? '存在' : '不存在'}`);
+      
+      if (!merchantToken && !adminToken) {
+        log('\n❌ 错误：没有找到任何 token！请先登录商家后台。');
+        return;
+      }
+      
+      const token = merchantToken || adminToken;
+      const url = '/api/merchants/reviews?page=1&pageSize=20';
+      
+      log('\n=== 发送请求 ===');
+      log(`URL: ${url}`);
+      log(`Token: ${token ? token.substring(0, 50) + '...' : '无'}`);
+      
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        log(`\n响应状态：${response.status} ${response.statusText}`);
+        
+        const data = await response.json();
+        log(`\n响应数据：\n${JSON.stringify(data, null, 2)}`);
+        
+        if (response.ok) {
+          log('\n✅ 请求成功！');
+        } else {
+          log('\n❌ 请求失败！');
+        }
+      } catch (error) {
+        log(`\n❌ 错误：${error.message}`);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+@startuml 订单发货顺序图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 80
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+skinparam defaultWidth 400
+skinparam sequenceArrowColor Black
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 40
+
+
+
+actor "商家" as Merchant
+participant "Orders.vue" as Frontend
+participant "OrderController" as Controller
+participant "数据库" as Database
+
+Merchant -> Frontend++: 点击"发货",填写物流信息
+Frontend -> Controller++: POST /api/orders/:id/ship
+Controller -> Database++: 查询订单信息(校验权限和状态)
+Database --> Controller--: 返回订单实体
+Controller -> Controller: 验证订单为待发货状态
+Controller -> Database++: 更新订单状态为已发货,记录物流信息
+Database --> Controller--: 返回更新结果
+Controller --> Frontend--: 返回发货成功
+Frontend --> Merchant--: 显示发货成功提示
+
+
+@enduml

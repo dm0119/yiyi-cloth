@@ -1,0 +1,167 @@
+@startuml
+title 依依大码服装在线销售系统 - 类图
+
+skinparam backgroundColor white
+skinparam classBackgroundColor white
+skinparam classBorderColor black
+skinparam classFontColor black
+skinparam classHeaderBackgroundColor white
+skinparam stereotypeCBackgroundColor white
+skinparam classAttributeIconSize 0
+hide circle
+
+' 用户与权限
+class User {
+  -id: int
+  -username: string
+  -password: string
+  -role_id: int
+  -name: string
+  -phone: string
+  -email: string
+  -avatar: string
+  -status: int
+  -created_at: datetime
+}
+
+class Role {
+  -id: int
+  -name: string
+  -permissions: json
+}
+
+class Address {
+  -id: int
+  -user_id: int
+  -receiver_name: string
+  -phone: string
+  -province: string
+  -city: string
+  -district: string
+  -detail: string
+  -is_default: boolean
+}
+
+class Shop {
+  -id: int
+  -user_id: int
+  -name: string
+  -status: int
+}
+
+' 商品
+class Product {
+  -id: int
+  -shop_id: int
+  -name: string
+  -price: decimal
+  -stock: int
+}
+
+class Category {
+  -id: int
+  -name: string
+  -parent_id: int
+  -level: int
+}
+
+' 购物与订单
+class CartItem {
+  -id: int
+  -user_id: int
+  -product_id: int
+  -quantity: int
+}
+
+class Order {
+  -id: int
+  -order_no: string
+  -user_id: int
+  -total_amount: decimal
+  -status: enum
+  -timeout_at: datetime
+  -payment_time: datetime
+  -delivery_time: datetime
+  -complete_time: datetime
+  -cancel_reason: string
+}
+
+class OrderItem {
+  -id: int
+  -order_id: int
+  -product_id: int
+  -price: decimal
+  -quantity: int
+}
+
+class Coupon {
+  -id: int
+  -name: string
+  -type: enum
+  -value: decimal
+  -status: int
+}
+
+' 评价
+class Review {
+  -id: int
+  -order_id: int
+  -user_id: int
+  -product_id: int
+  -rating: int
+}
+
+' 客服
+class Conversation {
+  -id: int
+  -buyer_id: int
+  -cs_id: int
+  -status: enum
+  -created_at: datetime
+  -updated_at: datetime
+}
+
+class Message {
+  -id: int
+  -conversation_id: int
+  -sender_id: int
+  -content: text
+  -created_at: datetime
+}
+
+' 售后
+class OrderReturn {
+  -id: int
+  -order_id: int
+  -user_id: int
+  -type: enum
+  -reason: string
+  -description: text
+  -images: json
+  -status: enum
+  -created_at: datetime
+  -updated_at: datetime
+}
+
+' 关系
+User "1" -- "1" Role : has
+User "1" -- "*" Address : has
+User "1" -- "0..1" Shop : owner
+User "1" -- "*" CartItem : has
+Product "*" -- "1" Shop : belongsTo
+Product "*" -- "*" Category : categorizedBy
+Category "1" -- "0..*" Category : parent
+CartItem "*" -- "1" Product : product
+Order "1" -- "*" OrderItem : contains
+OrderItem "*" -- "1" Product : product
+Order "*" -- "1" User : placedBy
+Review "*" -- "1" Order : forOrder
+Review "*" -- "1" Product : about
+Conversation "1" -- "*" Message : contains
+Conversation "1" -- "1" User : buyer
+Conversation "1" -- "1" User : cs
+Message "1" -- "1" User : sentBy
+OrderReturn "*" -- "1" Order : belongsTo
+OrderReturn "*" -- "1" User : applyBy
+
+@enduml

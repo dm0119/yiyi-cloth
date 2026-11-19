@@ -1,0 +1,76 @@
+.product-list {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.product-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+}
+
+.product-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-price {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: var(--font-size-md);
+}
+
+.product-stock {
+  color: var(--text-secondary);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.action-btn {
+  padding: 4px 8px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--button-radius);
+}
+
+.edit-btn {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #3db9b0;
+}
+
+.delete-btn {
+  background: var(--error-color);
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #d9363e;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: var(--font-size-xs);
+  border-radius: 12px;
+}
+
+.status-on {
+  background: #f6ffed;
+  color: var(--success-color);
+}
+
+.status-off {
+  background: #fff7e6;
+  color: var(--warning-color);
+}

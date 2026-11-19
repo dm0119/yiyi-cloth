@@ -1,0 +1,60 @@
+@startuml
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+
+actor 商家 as Merchant
+participant "MerchantLogin.vue" as ApplyPage
+participant "MerchantController" as Controller
+participant "数据库" as Database
+
+Merchant -> ApplyPage: 填写信息并点击"提交申请"
+activate ApplyPage
+ApplyPage -> Controller: POST /api/merchants/apply
+activate Controller
+Controller -> Database: 验证字段和检查重复
+activate Database
+Database --> Controller: 返回校验结果
+deactivate Database
+Controller -> Database: 插入申请记录
+activate Database
+Database --> Controller: 返回插入结果
+deactivate Database
+Controller --> ApplyPage: 返回申请成功
+deactivate Controller
+ApplyPage --> Merchant: 显示"申请提交成功"
+deactivate ApplyPage
+
+actor 超级管理员 as Admin
+participant "MerchantReview.vue" as ReviewPage
+
+Admin -> ReviewPage: 点击"待审核"标签
+activate ReviewPage
+ReviewPage -> Controller: GET /api/merchants/pending
+activate Controller
+Controller -> Database: 查询待审核记录
+activate Database
+Database --> Controller: 返回申请列表
+deactivate Database
+Controller --> ReviewPage: 返回申请数据
+deactivate Controller
+ReviewPage --> Admin: 展示申请列表
+deactivate ReviewPage
+
+Admin -> ReviewPage: 填写审核意见并点击"通过"
+activate ReviewPage
+ReviewPage -> Controller: POST /api/merchants/review
+activate Controller
+Controller -> Database: 更新申请状态为approved
+activate Database
+Database --> Controller: 返回更新结果
+deactivate Database
+Controller -> Database: 创建用户和店铺记录
+activate Database
+Database --> Controller: 返回创建结果
+deactivate Database
+Controller --> ReviewPage: 返回审核成功
+deactivate Controller
+ReviewPage --> Admin: 刷新列表并显示"审核通过"
+deactivate ReviewPage
+@enduml

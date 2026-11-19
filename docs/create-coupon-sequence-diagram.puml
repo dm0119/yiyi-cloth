@@ -1,0 +1,32 @@
+@startuml 发布优惠券顺序图
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 80
+skinparam participantBackgroundColor white
+skinparam actorBackgroundColor white
+skinparam databaseBackgroundColor white
+skinparam defaultWidth 400
+skinparam sequenceArrowColor Black
+skinparam responseMessageBelowArrow true
+skinparam ParticipantPadding 40
+
+
+actor "运营" as Operator
+participant "Coupons.vue" as Frontend
+participant "CouponController" as Controller
+participant "数据库" as Database
+
+Operator -> Frontend++: 点击"发布优惠券",填写优惠券信息
+Frontend -> Controller++: POST /api/coupons
+Controller -> Controller: 根据用户身份区分平台券/商家券
+Controller -> Controller: 校验使用范围规则
+Controller -> Database++: INSERT INTO coupons
+Database --> Controller--: 返回优惠券ID
+Controller -> Database++: INSERT INTO coupon_products(指定服装关联)
+Database --> Controller--: 返回插入结果
+Controller --> Frontend--: 返回创建成功(优惠券ID)
+Frontend --> Operator--: 显示发布成功提示
+
+
+@enduml
