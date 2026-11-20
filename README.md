@@ -6,28 +6,35 @@
 
 ## 技术栈
 
+按全栈能力分为四块：前端、后端、数据库、工程与质量。
+
+**前端**
+
+- Vue 3 + Vite 构建，组件化开发，Pinia 状态管理、Vue Router 路由
+- HTML5 / CSS3 响应式布局，Flex 与栅格体系，适配不同屏幕与分辨率
+- JavaScript ES6+，Element Plus 组件库、ECharts 数据可视化
+- uni-app 多端框架，一套代码编译为 H5 与微信小程序（Vant、vue-i18n）
+- 主流浏览器兼容性处理与页面加载性能优化
+
 **后端**
 
-- Node.js + Express 5，RESTful API
-- MySQL 8.0（`mysql2` 驱动，utf8mb4）
-- Redis（`ioredis`，用于权限与数据缓存，可关闭）
-- JWT 身份认证 + `bcryptjs` 密码加密
-- Socket.io 实时通信（客服聊天）
-- `sharp` 图片处理、`multer` 文件上传
-- `winston` 日志、`swagger-ui-express` 接口文档
+- Node.js + Express 5，RESTful API 设计与分层结构（routes / controllers / services）
+- JWT 鉴权 + bcrypt 密码加密，RBAC 五角色权限模型，Redis 缓存
+- Socket.io 实时通信，multer 文件上传与 sharp 图片处理
+- winston 日志、统一错误处理、接口限流
 
-**管理后台（frontend）**
+**数据库**
 
-- Vue 3 + Vite 4
-- Element Plus 组件库（按需自动导入）
-- Pinia 状态管理、Vue Router
-- ECharts 数据可视化、Socket.io Client
+- MySQL 8.0，utf8mb4 字符集，表结构设计与实体关联梳理
+- SQL 编写：多表联查、条件聚合、分页查询、索引优化
+- 数据库迁移脚本与初始化数据维护
 
-**移动端商城（uiapp）**
+**工程与质量**
 
-- uni-app（Vue 3）多端框架，基于 `@uni-helper/unh` 构建
-- 可编译为 H5、微信小程序及其他小程序平台
-- Vant 组件库、`vue-i18n` 国际化
+- Postman 接口调试与回归测试
+- 功能测试用例设计，覆盖购物车、支付、发货、优惠券等核心链路
+- PlantUML 类图、时序图与流程设计，需求分析及用例图
+- Git 版本管理，借助 AI 编程工具辅助编码、调试与文档生成
 
 ---
 
@@ -167,3 +174,4 @@ npm run fix-admin-account
 - `backend/config/index.js` 中的数据库密码与 JWT 密钥为本地开发默认值，正式部署前应改为读取环境变量，避免入库泄露
 - `node_modules`、`dist`、`logs`、`backend/uploads` 已通过 `.gitignore` 排除，不纳入版本管理
 - 数据库增量结构变更脚本位于 `backend/db/migrations/`，可单独执行
+- 测试以手工功能测试与 Postman 接口测试为主，暂未引入自动化测试框架，测试用例见 `docs/功能测试用例.md`
